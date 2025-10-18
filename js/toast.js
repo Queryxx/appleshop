@@ -16,10 +16,16 @@ class Toast {
     show(title, message, type = 'success') {
         const toast = document.createElement('div');
         toast.className = 'toast';
+        const iconName = type === 'success' ? 'check' : 'alert-triangle';
+        // Use Feather if available, fall back to FontAwesome classes
+        const iconHtml = (window.feather && window.feather.icons[iconName])
+            ? window.feather.icons[iconName].toSvg()
+            : `<i class="fas ${type === 'success' ? 'fa-check' : 'fa-exclamation'}"></i>`;
+
         toast.innerHTML = `
             <div class="toast-content">
                 <div class="toast-icon">
-                    <i class="fas ${type === 'success' ? 'fa-check' : 'fa-exclamation'}"></i>
+                    ${iconHtml}
                 </div>
                 <div class="toast-message">
                     <div class="toast-title">${title}</div>

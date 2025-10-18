@@ -231,3 +231,42 @@ function closeModal() {
     document.getElementById('profileModal').classList.add('hidden');
 }
 </script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    // Replace FontAwesome icons in the account sidebar context for an iOS feel
+    function iconReplace() {
+        const map = {
+            'fa-home': 'home',
+            'fa-shopping-bag': 'shopping-bag',
+            'fa-user': 'user',
+            'fa-map-marker-alt': 'map-pin',
+            'fa-shopping-cart': 'shopping-cart',
+            'fa-cog': 'settings',
+            'fa-sign-out-alt': 'log-out',
+            'fa-times': 'x',
+            'fa-camera': 'camera'
+        };
+
+        document.querySelectorAll('i').forEach(el => {
+            try {
+                const classes = (el.className || '').split(/\s+/);
+                const faClass = classes.find(c => map[c]);
+                if (faClass) {
+                    el.setAttribute('data-feather', map[faClass]);
+                    const keepClasses = classes.filter(c => !/^fa[srb]?$/.test(c) && !c.startsWith('fa-'));
+                    if (keepClasses.length) el.setAttribute('class', keepClasses.join(' ')); else el.removeAttribute('class');
+                }
+            } catch (e) {}
+        });
+
+        if (window.feather) {
+            feather.replace({ 'aria-hidden': 'true' });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', iconReplace);
+    } else {
+        iconReplace();
+    }
+</script>

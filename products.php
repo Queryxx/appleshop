@@ -61,7 +61,7 @@ $loggedIn = isset($_SESSION['user_id']); // Change this based on your session va
 <button onclick="<?php echo $loggedIn ? "window.location.href='checkoutform.php?product_id=" . $product["product_id"] . "'" : "window.location.href='login.php'"; ?>" 
     class="flex-1 bg-black text-white px-3 py-2 rounded-full shadow hover:bg-gray-900 transition-colors flex items-center justify-center space-x-2<?php echo $product['status'] === 'not_available' ? ' cursor-not-allowed' : ''; ?>"
     <?php echo $product['status'] === 'not_available' ? ' disabled' : ''; ?>>
-    <i class="fas fa-credit-card"></i>
+            <i class="fas fa-credit-card"></i>
     <span class="text-sm">Buy</span>
 </button>
 
@@ -98,3 +98,8 @@ endif;
     .product-card{ border: 1px solid rgba(0,0,0,0.04); background: rgba(255,255,255,0.98); border-radius: 18px; }
     .product-card img{ border-top-left-radius: 12px; border-top-right-radius: 12px; }
     </style>
+    <script>
+        if (window.feather) {
+            feather.replace({ 'aria-hidden': 'true' });
+        }
+    </script>

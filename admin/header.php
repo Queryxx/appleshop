@@ -7,10 +7,11 @@
     <title>Admin Panel -  JMYBA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="bg-slate-100">
     <!-- Top Navigation Bar -->
-    <header class="fixed top-0 right-0 left-64 bg-white z-30">
+    <header class="fixed top-0 right-0 left-64 bg-white/70 backdrop-blur-md border-b border-gray-100 z-30">
         <div class="px-6 py-4 flex items-center justify-between">
             <!-- Page Title -->
             <h1 class="text-xl font-semibold text-gray-800">
@@ -50,3 +51,98 @@
             </div>
         </div>
     </header>
+    <script>
+        // Replace FontAwesome <i> elements with Feather icons using a mapping.
+        function iconReplace() {
+            const map = {
+                // General navigation
+                'fa-home': 'home',
+                'fa-store': 'shopping-bag',
+                'fa-shopping-bag': 'shopping-bag',
+                'fa-info-circle': 'info',
+                'fa-phone': 'phone',
+                'fa-shop': 'shopping-bag',
+                'fa-shopping-cart': 'shopping-cart',
+                'fa-user': 'user',
+                'fa-user-circle': 'user',
+                'fa-heart': 'heart',
+                'fa-user-check': 'user-check',
+
+                // UI controls
+                'fa-chevron-down': 'chevron-down',
+                'fa-times': 'x',
+                'fa-bars': 'menu',
+                'fa-plus': 'plus',
+                'fa-minus': 'minus',
+                'fa-edit': 'edit',
+                'fa-trash': 'trash-2',
+                'fa-ban': 'slash',
+                'fa-eye': 'eye',
+                'fa-eye-slash': 'eye-off',
+
+                // Commerce/actions
+                'fa-credit-card': 'credit-card',
+                'fa-cart-plus': 'shopping-cart',
+                'fa-arrow-right': 'arrow-right',
+                'fa-arrow-left': 'arrow-left',
+                'fa-peso-sign': 'dollar-sign', // closest available
+                'fa-image': 'image',
+
+                // Features/benefits
+                'fa-shipping-fast': 'truck',
+                'fa-shield-alt': 'shield',
+                'fa-headset': 'headphones',
+                'fa-map-marker-alt': 'map-pin',
+                'fa-envelope': 'mail',
+                'fa-bell': 'bell',
+                'fa-cog': 'settings',
+                'fa-chart-line': 'trending-up',
+                'fa-users': 'users',
+
+                // Data state
+                'fa-sign-out-alt': 'log-out',
+                'fa-box': 'package',
+                'fa-out-of-stock': 'x-circle',
+                'fa-low-stock': 'alert-triangle',
+                'fa-exclamation-circle': 'alert-circle'
+            };
+
+            // Approximate brand icon mappings
+            const brandMap = {
+                'fa-facebook': 'globe',
+                'fa-facebook-f': 'globe',
+                'fa-instagram': 'camera',
+                'fa-tiktok': 'music',
+                'fa-twitter': 'send'
+            };
+
+            document.querySelectorAll('i').forEach(el => {
+                try {
+                    const classes = (el.className || '').split(/\s+/);
+                    const brandClass = classes.find(c => brandMap[c]);
+                    if (brandClass) {
+                        el.setAttribute('data-feather', brandMap[brandClass]);
+                        const keepClasses = classes.filter(c => !/^fa[srb]?$/.test(c) && !c.startsWith('fa-'));
+                        if (keepClasses.length) el.setAttribute('class', keepClasses.join(' ')); else el.removeAttribute('class');
+                        return;
+                    }
+                    const faClass = classes.find(c => map[c]);
+                    if (faClass) {
+                        el.setAttribute('data-feather', map[faClass]);
+                        const keepClasses = classes.filter(c => !/^fa[srb]?$/.test(c) && !c.startsWith('fa-'));
+                        if (keepClasses.length) el.setAttribute('class', keepClasses.join(' ')); else el.removeAttribute('class');
+                    }
+                } catch (e) {}
+            });
+
+            if (window.feather) {
+                feather.replace({ 'aria-hidden': 'true' });
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', iconReplace);
+        } else {
+            iconReplace();
+        }
+    </script>

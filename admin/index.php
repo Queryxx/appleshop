@@ -44,6 +44,7 @@
         <title>Admin Login - JMYBA</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="https://unpkg.com/feather-icons"></script>
     </head>
 
     <body class="bg-slate-900">
@@ -107,17 +108,22 @@
         <script>
             function togglePassword() {
                 const passwordInput = document.getElementById('password');
-                const eyeIcon = document.querySelector('.fa-eye');
+                const iconContainer = passwordInput.nextElementSibling.querySelector('i, svg');
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
 
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    eyeIcon.classList.remove('fa-eye');
-                    eyeIcon.classList.add('fa-eye-slash');
-                } else {
-                    passwordInput.type = 'password';
-                    eyeIcon.classList.remove('fa-eye-slash');
-                    eyeIcon.classList.add('fa-eye');
+                if (iconContainer && iconContainer.tagName && iconContainer.tagName.toLowerCase() === 'svg') {
+                    iconContainer.outerHTML = (isPassword
+                        ? feather.icons['eye-off'].toSvg()
+                        : feather.icons['eye'].toSvg());
+                } else if (iconContainer) {
+                    iconContainer.classList.toggle('fa-eye');
+                    iconContainer.classList.toggle('fa-eye-slash');
                 }
+            }
+
+            if (window.feather) {
+                feather.replace({ 'aria-hidden': 'true' });
             }
         </script>
     </body>

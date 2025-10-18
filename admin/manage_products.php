@@ -165,6 +165,7 @@ $result = $conn->query($sql);
     <title>Manage Products - Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body class="bg-slate-100">
@@ -430,6 +431,11 @@ $result = $conn->query($sql);
             }
         }
     </script>
+<script>
+    if (window.feather) {
+        feather.replace({ 'aria-hidden': 'true' });
+    }
+</script>
 </body>
 
 </html>

@@ -51,6 +51,7 @@ while ($item = $result->fetch_assoc()) {
     <title>Checkout - JMYBA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body class="bg-gray-50">
@@ -131,7 +132,7 @@ while ($item = $result->fetch_assoc()) {
                                         <option value="gcash">GCash</option>
                                     </select>
                                     <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                    <i class="fas fa-chevron-down text-gray-400"></i>
                                     </div>
                                 </div>
                             </div>
@@ -212,6 +213,11 @@ while ($item = $result->fetch_assoc()) {
     </script>
 
     <?php include 'footer.php'; ?>
+    <script>
+        if (window.feather) {
+            feather.replace({ 'aria-hidden': 'true' });
+        }
+    </script>
 </body>
 
 </html>
