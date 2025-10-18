@@ -108,3 +108,43 @@ include 'auth.php';
         transform: rotate(180deg);
     }
 </style>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+    // Ensure icons are consistent with iOS-like feel
+    function iconReplace() {
+        const map = {
+            'fa-chart-line': 'trending-up',
+            'fa-box': 'package',
+            'fa-shopping-cart': 'shopping-cart',
+            'fa-users': 'users',
+            'fa-chevron-down': 'chevron-down',
+            'fa-info-circle': 'info',
+            'fa-image': 'image',
+            'fa-envelope': 'mail',
+            'fa-cog': 'settings',
+            'fa-user-circle': 'user',
+            'fa-sign-out-alt': 'log-out'
+        };
+
+        document.querySelectorAll('i').forEach(el => {
+            try {
+                const classes = (el.className || '').split(/\s+/);
+                const faClass = classes.find(c => map[c]);
+                if (faClass) {
+                    el.setAttribute('data-feather', map[faClass]);
+                    el.removeAttribute('class');
+                }
+            } catch (e) {}
+        });
+
+        if (window.feather) {
+            feather.replace({ 'aria-hidden': 'true' });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', iconReplace);
+    } else {
+        iconReplace();
+    }
+</script>

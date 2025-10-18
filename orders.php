@@ -43,6 +43,7 @@ try {
     <title>My Orders - JMYBA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
     <style>
         .glass-card {
             background: rgba(25, 42, 86, 0.7);
@@ -140,7 +141,7 @@ try {
                                             onclick="viewDetails(<?php echo $order['order_id']; ?>)"
                                             class="flex items-center text-sm text-red-500 hover:text-red-400 transition-colors">
                                             Details
-                                            <i class="fas fa-arrow-right ml-1"></i>
+                            <i class="fas fa-arrow-right ml-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -301,6 +302,11 @@ try {
             </div>
         </div>
     </footer>
+    <script>
+        if (window.feather) {
+            feather.replace({ 'aria-hidden': 'true' });
+        }
+    </script>
 </body>
 
 </html>

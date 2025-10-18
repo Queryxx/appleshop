@@ -31,7 +31,7 @@ $contact = $conn->query("SELECT * FROM contact_info LIMIT 1")->fetch_assoc();
                     <?php if (!empty($contact['tiktok'])): ?>
                         <a href="<?php echo htmlspecialchars($contact['tiktok']); ?>" 
                            class="text-gray-700 hover:text-gray-900" target="_blank">
-                           <i data-feather="tiktok"></i>
+                           <i class="fab fa-tiktok fa-2x"></i>
                         </a>
                     <?php endif; ?>
                     <?php if (!empty($contact['instagram_url'])): ?>

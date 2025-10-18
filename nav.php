@@ -31,13 +31,13 @@ if ($user_id) {
         <!-- Right Side Icons -->
         <div class="flex items-center space-x-6">
             <!-- Order Form and Cart (unchanged) -->
-            <a href="order-form.php" class="text-gray-600 hover:text-gray-800 transition transform hover:scale-105 flex items-center space-x-2">
+            <a href="order-form.php" class="text-gray-700 hover:text-gray-900 transition transform hover:scale-105 flex items-center space-x-2 bg-white/60 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
                 <i class="fas fa-shop fa-lg"></i>
                 <span class="hidden md:inline font-medium">Buy</span>
             </a>
 
             <!-- Cart -->
-            <a href="<?php echo $user_id ? 'cart.php' : 'login.php'; ?>" class="text-gray-600 hover:text-gray-800 transition relative transform hover:scale-105 flex items-center"
+            <a href="<?php echo $user_id ? 'cart.php' : 'login.php'; ?>" class="text-gray-700 hover:text-gray-900 transition relative transform hover:scale-105 flex items-center"
                 <?php if (!$user_id): ?>title="Please login to view cart" <?php endif; ?>>
                 <i class="fas fa-shopping-cart fa-lg"></i>
                 <?php if ($user_id): ?>
@@ -62,7 +62,7 @@ if ($user_id) {
                             <i class="fas fa-chevron-down text-gray-500 text-sm ml-1"></i>
                         </button>
                         <!-- Dropdown Menu -->
-                        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
+                        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white/90 backdrop-blur-lg rounded-xl shadow-xl border border-white py-1 hidden">
                             <a href="account_dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                 <i class="fas fa-user mr-2"></i> My Profile
                             </a>
@@ -217,30 +217,17 @@ if ($user_id) {
 </script>
 <style>
     /* iPhone-like glass navbar */
-    .iphone-nav {
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-        padding-top: env(safe-area-inset-top);
-    }
+    .iphone-nav { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-top: env(safe-area-inset-top); }
 
     /* mobile sliding panel looks like iOS panel */
-    .mobile-panel {
-        width: 320px;
-        border-radius: 0 18px 18px 0;
-        right: 0;
-        transform: translateX(0);
-    }
+    .mobile-panel { width: 320px; border-radius: 0 18px 18px 0; right: 0; transform: translateX(0); }
 
     /* utility for hiding by translating full width */
     .translate-x-full {
         transform: translateX(100%);
     }
 
-    .dropdown-active {
-        display: block !important;
-    }
+    .dropdown-active { display: block !important; }
 
     #profile-dropdown {
         z-index: 1000;
@@ -278,34 +265,68 @@ if ($user_id) {
     // Replace FontAwesome <i> elements with Feather icons using a mapping.
     function iconReplace() {
         const map = {
+            // General navigation
             'fa-home': 'home',
             'fa-store': 'shopping-bag',
+            'fa-shopping-bag': 'shopping-bag',
             'fa-info-circle': 'info',
             'fa-phone': 'phone',
             'fa-shop': 'shopping-bag',
             'fa-shopping-cart': 'shopping-cart',
             'fa-user': 'user',
+            'fa-user-circle': 'user',
+            'fa-heart': 'heart',
+            'fa-user-check': 'user-check',
+
+            // UI controls
             'fa-chevron-down': 'chevron-down',
             'fa-times': 'x',
+            'fa-bars': 'menu',
+            'fa-plus': 'plus',
+            'fa-minus': 'minus',
+            'fa-edit': 'edit',
+            'fa-trash': 'trash-2',
+            'fa-ban': 'slash',
+            'fa-eye': 'eye',
+            'fa-eye-slash': 'eye-off',
+            'fa-check-circle': 'check-circle',
+            'fa-check': 'check',
+            'fa-camera': 'camera',
+
+            // Commerce/actions
             'fa-credit-card': 'credit-card',
             'fa-cart-plus': 'shopping-cart',
             'fa-arrow-right': 'arrow-right',
+            'fa-arrow-left': 'arrow-left',
+            'fa-peso-sign': 'dollar-sign', // closest available
+            'fa-image': 'image',
+
+            // Features/benefits
             'fa-shipping-fast': 'truck',
             'fa-shield-alt': 'shield',
             'fa-headset': 'headphones',
             'fa-map-marker-alt': 'map-pin',
             'fa-envelope': 'mail',
+            'fa-bell': 'bell',
+            'fa-cog': 'settings',
+            'fa-chart-line': 'trending-up',
+            'fa-users': 'users',
+
+            // Data state
             'fa-sign-out-alt': 'log-out',
             'fa-box': 'package',
             'fa-out-of-stock': 'x-circle',
-            'fa-low-stock': 'alert-triangle'
+            'fa-low-stock': 'alert-triangle',
+            'fa-exclamation-circle': 'alert-circle'
         };
 
         // Approximate brand icon mappings (Feather doesn't include brand logos)
         const brandMap = {
             'fa-facebook': 'globe',
+            'fa-facebook-f': 'globe',
             'fa-instagram': 'camera',
-            'fa-tiktok': 'music'
+            'fa-tiktok': 'music',
+            'fa-twitter': 'send'
         };
 
         document.querySelectorAll('i').forEach(el => {
@@ -316,7 +337,8 @@ if ($user_id) {
                 const brandClass = classes.find(c => brandMap[c]);
                 if (brandClass) {
                     el.setAttribute('data-feather', brandMap[brandClass]);
-                    el.removeAttribute('class');
+                    const keepClasses = classes.filter(c => !/^fa[srb]?$/.test(c) && !c.startsWith('fa-'));
+                    if (keepClasses.length) el.setAttribute('class', keepClasses.join(' ')); else el.removeAttribute('class');
                     return;
                 }
 
@@ -324,7 +346,8 @@ if ($user_id) {
                 const faClass = classes.find(c => map[c]);
                 if (faClass) {
                     el.setAttribute('data-feather', map[faClass]);
-                    el.removeAttribute('class');
+                    const keepClasses = classes.filter(c => !/^fa[srb]?$/.test(c) && !c.startsWith('fa-'));
+                    if (keepClasses.length) el.setAttribute('class', keepClasses.join(' ')); else el.removeAttribute('class');
                 }
             } catch (e) {
                 // ignore

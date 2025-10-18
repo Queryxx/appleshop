@@ -11,6 +11,7 @@ include 'conn.php';
     <title>JMYBA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="./style/toast.css">
     <script src="./js/toast.js" defer></script>
     
@@ -25,6 +26,11 @@ include 'conn.php';
     <?php include 'contact.php'; ?>
     <?php include 'footer.php'; ?>
 
+    <script>
+        if (window.feather) {
+            feather.replace({ 'aria-hidden': 'true' });
+        }
+    </script>
 </body>
 
 </html>
